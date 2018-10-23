@@ -22,6 +22,7 @@ public class GrabberRB : MonoBehaviour
     //Rotating object with touchpad swipes variables
     protected GvrControllerInputDevice _gvrControllerDevice;
     protected Vector2 _previousTouchPos;
+    protected Vector3 _highestAngularVelocity = Vector3.zero;
     protected bool _wasTouching = false;
     public float swipeMultiplier = 10.0f;
 
@@ -83,15 +84,25 @@ public class GrabberRB : MonoBehaviour
 
                     Vector3 heldObjectAngularVelocity = transform.right * deltaTouch.y;
                     heldObjectAngularVelocity += Vector3.up * -1 * deltaTouch.x;
+                    heldObjectAngularVelocity *= swipeMultiplier / Time.fixedDeltaTime;
                     //new Vector3(0.0f, -1 * deltaTouch.x, 0.0f) * swipeMultiplier;
-                    _grabbedObjectRigidBody.angularVelocity = heldObjectAngularVelocity * swipeMultiplier;
+                    _grabbedObjectRigidBody.angularVelocity = heldObjectAngularVelocity;
+                    if(heldObjectAngularVelocity.sqrMagnitude > _highestAngularVelocity.sqrMagnitude)
+                    {
+                        _highestAngularVelocity = heldObjectAngularVelocity;
+                    }
+                    _highestAngularVelocity *= 0.7f;
                 }
 
                 _wasTouching = true;
                 _previousTouchPos = currentTouchPos;
             }
-            else
+            else if (_wasTouching)
             {
+                
+                _grabbedObjectRigidBody.angularVelocity = _highestAngularVelocity;
+                _highestAngularVelocity = Vector3.zero;
+
                 _wasTouching = false;
             }
             #endregion
