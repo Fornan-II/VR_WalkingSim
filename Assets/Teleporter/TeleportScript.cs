@@ -113,7 +113,7 @@ public class TeleportScript : MonoBehaviour {
             return;
         }
 
-        if (Physics.CheckSphere(hit.point + (Vector3.up * objectHeight), objectRadius, Physics.AllLayers, QueryTriggerInteraction.Ignore))
+        if (Physics.CheckCapsule(hit.point + Vector3.up * (objectRadius + 0.01f), hit.point + (Vector3.up * (objectHeight - objectRadius)), objectRadius, Physics.AllLayers, QueryTriggerInteraction.Ignore))
         {
             _validTeleportLocation = false;
             return;
