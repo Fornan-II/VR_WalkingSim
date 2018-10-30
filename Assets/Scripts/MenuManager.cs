@@ -11,28 +11,13 @@ public class MenuManager : MonoBehaviour {
     public Transform playerCameraTransform;
 
     protected RectTransform _rt;
-    protected GvrControllerInputDevice _gvrControllerDevice;
+    
 
     private void Start()
     {
         menu.SetActive(StartActive);
 
         _rt = GetComponent<RectTransform>();
-    }
-
-    private void Update()
-    {
-        if (_gvrControllerDevice == null)
-        {
-            _gvrControllerDevice = GvrControllerInput.GetDevice(GvrControllerHand.Dominant);
-        }
-        else
-        {
-            if (_gvrControllerDevice.GetButtonDown(GvrControllerButton.App))
-            {
-                OpenMenu();
-            }
-        }
     }
 
     public void ToggleMenu()

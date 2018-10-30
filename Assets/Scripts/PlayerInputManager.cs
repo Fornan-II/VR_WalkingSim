@@ -10,6 +10,8 @@ public class PlayerInputManager : MonoBehaviour {
 
     public float grabPressTimeOut = 0.25f;
 
+    protected GvrControllerInputDevice _gvrControllerDevice;
+
     protected float _buttonDownTime;
     protected bool _buttonIsDown = false;
 
@@ -23,6 +25,7 @@ public class PlayerInputManager : MonoBehaviour {
 
     protected void Update()
     {
+        //Main click
         if (_buttonIsDown)
         {
             if (Time.timeSinceLevelLoad > _buttonDownTime + grabPressTimeOut)
@@ -35,6 +38,19 @@ public class PlayerInputManager : MonoBehaviour {
                         teleporter.OnActivate();
                     }
                 }
+            }
+        }
+
+        //App button
+        if (_gvrControllerDevice == null)
+        {
+            _gvrControllerDevice = GvrControllerInput.GetDevice(GvrControllerHand.Dominant);
+        }
+        else
+        {
+            if (_gvrControllerDevice.GetButtonDown(GvrControllerButton.App))
+            {
+                menu.OpenMenu();
             }
         }
     }
