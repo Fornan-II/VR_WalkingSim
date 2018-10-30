@@ -15,10 +15,8 @@ public class Keypad : MonoBehaviour {
 
     public void EnterValue(string value)
     {
-        Debug.Log("EnterValue(" + value + ")");
         if (value == "" && (OutputField.text.Length >= 1))
         {
-            Debug.Log("Backspace");
             OutputField.text = OutputField.text.Remove(OutputField.text.Length - 1);
         }
 
@@ -38,7 +36,6 @@ public class Keypad : MonoBehaviour {
             return;
         }
 
-        Debug.Log("Value matches.");
         _validEnteredCode = true;
     }
 

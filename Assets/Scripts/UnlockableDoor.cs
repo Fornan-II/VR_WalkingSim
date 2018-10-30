@@ -8,6 +8,7 @@ public class UnlockableDoor : MonoBehaviour {
     public Keypad MyKeypad;
 
     protected Animator _anim;
+    public bool IsOpen { get { return _anim.GetBool("IsOpen"); } }
 
 	// Use this for initialization
 	void Start ()
