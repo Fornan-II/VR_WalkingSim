@@ -156,9 +156,12 @@ public class TeleportScript : MonoBehaviour {
             _parabolaMagnitude = Mathf.Lerp(0.0f, parabolaMaxMagnitude, rampPercent);
             yield return null;
         }
-        if(showParabola)
+
+        _parabolaMagnitude = parabolaMaxMagnitude;
+
+        while (showParabola)
         {
-            _parabolaMagnitude = parabolaMaxMagnitude;
+            yield return null;
         }
         _coroutineActive = false;
     }

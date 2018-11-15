@@ -13,7 +13,7 @@ public class PlayerInputManager : MonoBehaviour {
     protected void Update()
     {
         //Main trigger
-        if (!_triggerActivelyHeld && OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger))
+        if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger))
         {
             _triggerActivelyHeld = true;
 
